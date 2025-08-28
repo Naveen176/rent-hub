@@ -48,6 +48,7 @@ export class Navbar {
     const modalRef = this.modalService.open(Login, { ...this.modalOptions, size: 'm' });
     modalRef.closed.subscribe((res) => {
       if (res) {
+        this.updateInfo();
         const match = this.userRecords().find(
           (user) => user.email === res.email && user.password === res.password
         );
