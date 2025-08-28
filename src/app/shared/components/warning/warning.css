@@ -1,0 +1,12 @@
+* {
+  text-align: justify;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem 0;
+  text-align: center;
+}
+
+.btn-padding {
+  padding: 4px 40px;
+}

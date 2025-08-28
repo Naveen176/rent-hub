@@ -1,0 +1,196 @@
+@if(showLoader()) {
+  <ng-container *ngTemplateOutlet="loader"></ng-container>
+} @else {
+  <div class="back-arrow p-2 mx-5 mt-2 d-flex alig-items-center">
+      <button class="btn btn-outline-primary" (click)="back()">back</button>
+    </div>
+  <div [formGroup]="formGroup" class="container py-4 my-3">
+    <h2 class="form-title">Add New Rental Property</h2>
+    <p class="form-subtitle"><i>- Fill in the details below to add your property to the rental marketplace.</i></p>
+    <div class="buttons d-flex gap-3 align-items-center justify-content-end">
+      <button class="btn btn-outline-secondary" (click)="discard()">Discard</button>
+      <button class="btn" style="color: #1a237e; border-color: #1a237e;" (click)="preview()">Preview</button>
+      <button class="btn btn-primary" (click)="addPost()">Publish Rental</button>
+    </div>
+    <div class="row g-3 mb-3 mt-3">
+      <div class="col-md-6 form-floating">
+          <select class="form-select" name="type" id="type" formControlName="type" placeholder="choose your apartment/building">
+              <option value="">Select an option</option>
+              <option value="APARTMENT">Apartment</option>
+              <option value="BUILDING">Building</option>
+          </select>
+          <label for="type" class="mx-2">Choose your Apartment/Building<span class="required">*</span></label>
+          @if(formGroup.get('type')?.invalid && attemptedSubmit()) {
+              <div class="d-block invalid error-message">
+                  @if(formGroup.get('type')?.hasError('required')) {
+                  <p class="invalid">please select the building type.</p>
+                  }
+              </div>
+          }
+      </div>
+      <div class="col-md-6 form-floating">
+        <input formControlName="name" class="form-control" id="name" placeholder="Building Name" />
+        <label for="name" class="mx-2">Enter name of your building<span class="required">*</span></label>
+        @if(formGroup.get('name')?.invalid && attemptedSubmit()) {
+          <div class="d-block invalid error-message">
+              @if(formGroup.get('name')?.hasError('required')) {
+              <p class="invalid">please enter the building name.</p>
+              }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label d-block">Is this a shared property?</label>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" formControlName="sharedProperty" id="sharedYes" value="true">
+        <label class="form-check-label" for="sharedYes">Yes</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" formControlName="sharedProperty" id="sharedNo" value="false">
+        <label class="form-check-label" for="sharedNo">No</label>
+      </div>
+    </div>
+
+    <div class="form-floating mb-4">
+      <input formControlName="streetAddress" class="form-control" id="streetAddress" placeholder="streetAddress" />
+      <label for="streetAddress">Street Address<span class="required">*</span></label>
+      @if(formGroup.get('streetAddress')?.invalid && attemptedSubmit()) {
+        <div class="d-block invalid error-message">
+            @if(formGroup.get('streetAddress')?.hasError('required')) {
+            <p class="invalid">please enter Street Address.</p>
+            }
+        </div>
+      }
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6 form-floating">
+        <input appNumbersonly formControlName="sqFt" class="form-control" id="sqFt" placeholder="Square Feet" />
+        <label for="sqFt" class="mx-2">Square Feet</label>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Stay / Lease Type <span class="required">*</span></label>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="leaseType" id="long" value="LONG_TERM">
+          <label class="form-check-label" for="long">Long term (6+ months)</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="leaseType" id="short" value="SHORT_TERM">
+          <label class="form-check-label" for="short">Short term</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="leaseType" id="both" value="BOTH">
+          <label class="form-check-label" for="both">Both</label>
+        </div>
+        @if(formGroup.get('leaseType')?.invalid && attemptedSubmit()) {
+          <div class="d-block invalid error-message">
+              @if(formGroup.get('leaseType')?.hasError('required')) {
+              <p class="invalid">please select the lease type.</p>
+              }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="formlabel">Expected Rent</label>
+      <div class="row g-3 align-items-center">
+        <div class="col-md-4 form-floating">
+          <input appNumbersonly type="text" formControlName="expectedRent" class="form-control" id="expectedRent" placeholder="Expected Rent">
+          <label for="expectedRent" class="mx-2">Expected Rent ($)<span class="required">*</span></label>
+          @if(formGroup.get('expectedRent')?.invalid && attemptedSubmit()) {
+            <div class="d-block invalid error-message">
+                @if(formGroup.get('expectedRent')?.hasError('required')) {
+                <p class="invalid">please enter expected rent amount.</p>
+                }
+            </div>
+          }
+        </div>
+        <div class="col-md-2">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" formControlName="negotiable" id="negotiable">
+            <label class="form-check-label" for="negotiable">Negotiable</label>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Price Mode</label>
+          <div class="form-check">
+            <input type="radio" class="form-check-input" formControlName="priceMode" id="perMonth" value="Per Month">
+            <label class="form-check-label" for="perMonth">Per Month</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" class="form-check-input" formControlName="priceMode" id="utilities" value="Utilities Included">
+            <label class="form-check-label" for="utilities">Utilities included</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label d-block">Is the room/apartment furnished?</label>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" formControlName="furnished" id="furnishedYes" value="Yes">
+        <label class="form-check-label" for="furnishedYes">Yes</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" formControlName="furnished" id="furnishedNo" value="No">
+        <label class="form-check-label" for="furnishedNo">No</label>
+      </div>
+      @if(formGroup.get('furnished')?.invalid && attemptedSubmit()) {
+        <div class="d-block invalid error-message">
+            @if(formGroup.get('furnished')?.hasError('required')) {
+              <p class="invalid">please select furnished status.</p>
+            }
+        </div>
+      }
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label">Amenities Included</label>
+      <div class="row">
+        @for (amenity of amenities; track amenity) {
+          <div class="col-md-4 mb-2">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" (change)="onAmenityChange($event, amenity)" [id]="amenity">
+              <label class="form-check-label" [for]="amenity">{{ amenity }}</label>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input formControlName="title" class="form-control" id="title" placeholder="Add Title">
+      <label for="title">Add Title<span class="required">*</span></label>
+      @if(formGroup.get('title')?.invalid && attemptedSubmit()) {
+        <div class="d-block invalid error-message">
+            @if(formGroup.get('title')?.hasError('required')) {
+            <p class="invalid">please enter rental title.</p>
+            }
+        </div>
+      }
+    </div>
+
+    <div class="form-floating mb-4">
+      <textarea formControlName="description" class="form-control" placeholder="Description" id="description" style="height: 120px"></textarea>
+      <label for="description">Enter a detailed description (max 1400 characters)<span class="required">*</span></label>
+      @if(formGroup.get('description')?.invalid && attemptedSubmit()) {
+        <div class="d-block invalid error-message">
+            @if(formGroup.get('description')?.hasError('required')) {
+            <p class="invalid">please enter rental description.</p>
+            }
+        </div>
+      }
+    </div>
+
+    <div class="input-group mb-3">
+      <input type="file" class="form-control p-2" id="buildingImage" (change)="onFileSelected($event)">
+    </div>
+
+  </div>
+}
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

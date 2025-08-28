@@ -1,0 +1,48 @@
+<div class="nav-bar p-2">
+  <nav class="d-flex align-items-center justify-content-between">
+    <ul class="d-flex justify-content-start gap-3 p-2">
+      <li>
+        <a href="/" class="app-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house icon-lg" viewBox="0 0 16 16">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+          </svg>
+          Rent Hub
+        </a>
+      </li>
+    </ul>
+    <ul class="d-flex justify-content-end gap-3 p-2">
+      <li class="input-group">
+        <input type="text" class="form-control" placeholder="Search Rental Title" [(ngModel)]="searchTitle" (keydown.enter)="search()">
+        @if(searchTitle.length) {
+          <span class="input-group-text clear-icon" id="clear" (click)="clear()">X</span>
+        }
+        <span class="input-group-text search-icon" id="search" (click)="search()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+          </svg>
+        </span>
+      </li>
+      @if(!isLoggedIn()) {
+        <li id="Login" class="btn btn-outline-light pr-2" (click)="login()">Login</li>
+        <li id="Register" class="btn btn-outline-light"><a [routerLink]="['/rent-hub/sign-up']">Register</a></li> 
+      }
+      @if(isLoggedIn()) {
+        <li id="filters" class="btn btn-outline-light" (click)="openFilterModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+            <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+          </svg>
+          Filters
+          @if(filtersCount() > 0) {
+            <span class="badge bg-danger ms-1">{{ filtersCount() }}</span>
+          }
+        </li>
+        @if(filtersCount() > 0) {
+          <li id="createPost" class="badge bg-danger d-flex align-items-center" (click)="clearFilters()">clear</li>
+        }
+        <li id="createPost" class="btn btn-outline-light" (click)="createPost()">New Post</li>
+        <li id="Login" class="btn btn-outline-light" (click)="logOut()">Sign out</li>
+      }
+      <!-- <li id="Profile" class="btn btn-outline-light"><a [routerLink]="['/profile']">Profile</a></li> -->
+    </ul>
+  </nav>
+</div>

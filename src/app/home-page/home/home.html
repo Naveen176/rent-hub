@@ -1,0 +1,21 @@
+@if(showLoader()) {
+    <ng-container *ngTemplateOutlet="loader"></ng-container>
+} @else {
+    @if(item() && showLatest()) {
+        <div class="container my-2 d-flex align-items-center gap-2">
+            @if(item().buildingImage?.length) {
+                <div class="image-section">
+                    <img [src]="item().buildingImage?.[0]" alt="image-preview" class="img-thumbnail rounded" alt="image-preview" />
+                </div>
+            }
+            <div class="appartment-info">
+                <app-listing-card [item]="item()" [showImage]="false" (viewInfo)="viewInfo($event)"></app-listing-card>
+            </div>
+        </div>
+    }
+    <app-listing-info [rentalRecords]="rentalRecords()"></app-listing-info>
+}
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

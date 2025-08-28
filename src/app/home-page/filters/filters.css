@@ -1,0 +1,13 @@
+* {
+  font-size: 14px;
+}
+
+.btn-padding {
+  padding: 5px 20px;
+  font-size: 16px;
+}
+
+input[type='radio'],
+.form-check-label {
+  cursor: pointer;
+}

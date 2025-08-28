@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="comment-history">
+    @for(comment of commentHistory(); track comment?.timestamp) {
+        <div class="comment-card p-3">
+            <div class="justify-content-end">
+                <p class="float-end">
+                <i>added by <b>{{ comment.user }}</b> at {{ comment.timestamp | localDateTime }}</i>
+                </p>
+            </div>
+            <div class="message mx-2">
+                <h5 class="title">
+                {{ comment.message }}
+                </h5>
+            </div>
+            @if(comment.reply) {
+              <div class="reply-card mx-3">
+                <div class="justify-content-end">
+                    <p class="float-end">
+                    <i>replied by <b>{{ publisherId() }}</b></i>
+                    </p>
+                </div>
+                  <h5 class="title mx-2">
+                  {{ comment.reply }}
+                  </h5>
+              </div>
+            }
+            @if(showReply() && !comment.reply) {
+              <div class="col-md-12 form-floating mb-2">
+                <textarea [formControl]="reply" class="form-control" placeholder="reply" id="reply" style="height: 100px"></textarea>
+                <label for="reply">add a reply </label>
+              </div>
+              <div class="justify-content-end">
+                  <p class="float-end reply" (click)="addReply(comment)">
+                    Reply
+                  </p>
+              </div>
+            }
+        </div>
+    } @if (commentHistory()?.length === 0) {
+    <div class="empty-state">
+      <p>No comments yet. Be the first to share your thoughts!</p>
+    </div>
+    }
+  </div>
+</div>

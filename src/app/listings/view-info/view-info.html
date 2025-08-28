@@ -1,0 +1,161 @@
+<div class="listing-container">
+  @if(!showPreview) {
+    <div class="back-arrow p-2 d-flex alig-items-center">
+      <button class="btn btn-outline-primary" (click)="back()">back</button>
+    </div>
+  } @else {
+    <div class="p-2 d-flex alig-items-center justify-content-end" (click)="close()">
+      <button
+        class="close-x"
+        (click)="close()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+        </svg>
+      </button>
+    </div>
+  }
+  <div class="listing-header">
+    <div class="title-section">
+      <h1>{{ rentInfo()?.title }}</h1>
+      <div class="location">
+        <svg class="location-icon" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        {{ rentInfo()?.streetAddress }}
+      </div>
+    </div>
+    <div class="favorite-section">
+      <button
+        class="favorite-btn"
+        [class.active]="rentInfo()?.favourite"
+        (click)="toggleFavorite()"
+      >
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="property-grid">
+    <div class="detail-card main-details">
+      <h2>Property Details</h2>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="label">Property Type</span>
+          <span class="value">{{ rentInfo()?.type ?? 'Not specified' | textTransform:'pascalcase' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Square Feet</span>
+          <span class="value">{{ rentInfo()?.sqFt }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Lease Type</span>
+          <span class="value">{{ rentInfo()?.leaseType ?? '' | textTransform: 'formatText'}}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Expected Rent</span>
+          <span class="value"
+            ><span class="rent-price"> ${{ rentInfo()?.expectedRent }}</span> /
+            {{ rentInfo()?.priceMode }}</span
+          >
+        </div>
+        <div class="detail-item">
+          <span class="label">Negotiable</span>
+          <span
+            class="value"
+            [class.positive]="rentInfo()?.negotiable"
+            [class.negative]="!rentInfo()?.negotiable"
+          >
+            {{ rentInfo()?.negotiable ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Price Mode</span>
+          <span class="value">{{ rentInfo()?.priceMode }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Furnished</span>
+          <span
+            class="value"
+            [class.positive]="rentInfo()?.furnished"
+            [class.negative]="!rentInfo()?.furnished"
+          >
+            {{ rentInfo()?.furnished ? 'Yes' : 'No' }}
+          </span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Shared Property</span>
+          <span
+            class="value"
+            [class.positive]="!rentInfo()?.sharedProperty"
+            [class.negative]="rentInfo()?.sharedProperty"
+          >
+            {{ rentInfo()?.sharedProperty ? 'Yes' : 'No' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-card description-card">
+      <h2>Description</h2>
+      <p class="description-text">{{ rentInfo()?.description }}</p>
+    </div>
+
+    @if(rentInfo()?.amenitiesIncluded) {
+      <h2>Amenities Included</h2>
+      <div class="amenities-grid">
+        @for(amenity of rentInfo()?.amenitiesIncluded; track $index) {
+        <div class="group">
+          <svg class="check-icon" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          {{ amenity }}
+        </div>
+        }
+      </div>
+    }
+
+    <div class="images">
+      <h2>{{ rentInfo()?.type }} Preview</h2>
+      <div class="row gap-2 align-images">
+        @for( image of rentInfo()?.buildingImage; track $index) {
+          <img [src]="image" alt="building-preview" class="thumbnail mb-2">
+        }
+      </div>
+    </div>
+
+    @if(!showPreview) {
+      <div class="comments mt-3">
+        <h2>Comments</h2>
+          @if(showAddComment()) {
+            @if(showLoader()) {
+              <ng-container *ngTemplateOutlet="loader"></ng-container>
+            } @else {
+              <div class="form-floating mb-4" [formGroup]="formGroup">
+              <textarea formControlName="comments" class="form-control" placeholder="comments" id="comments" formControlName="comments" style="height: 120px"></textarea>
+              <label for="comments">Add a comment for any enquiries</label>
+              <button class="btn btn-outline-primary m-2 float-end" (click)="addComment()">add a comment</button>
+            </div>
+            }
+          }
+        <app-comment-history [id]="rentInfo()?.id" [commentHistory]="rentInfo()?.comments" [publisherId]="rentInfo()?.publisherEmail" (addedReply)="addReply($event)"></app-comment-history>
+      </div>
+    }
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,0 +1,51 @@
+<div class="filter-modal p-3 m-2">
+    <div class="row g-2" [formGroup]="formGroup">
+        <div class="col-md-6">
+            <div class="form-floating">
+                <select class="form-select" name="type" id="type" formControlName="type" placeholder="choose your apartment/building">
+                    <option value="">Select an option</option>
+                    <option value="APARTMENT">Apartment</option>
+                    <option value="BUILDING">Building</option>
+                </select>
+                <label for="type">Choose Building Type</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <select class="form-select" name="leaseType" id="leaseType" formControlName="leaseType" placeholder="Lease Type">
+                    <option value="">Select an option</option>
+                    <option value="LONG_TERM">Long Term</option>
+                    <option value="SHORT_TERM">Short term</option>
+                </select>
+                <label for="leaseType">Lease Type</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <select class="form-select" name="negotiable" id="negotiable" formControlName="negotiable" placeholder="Negotiable">
+                    <option value="">Select an option</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+                <label for="negotiable">Negotiable</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Price Mode</label>
+          <div class="options d-flex">
+            <div class="form-check">
+            <input type="radio" class="form-check-input" formControlName="priceMode" id="perMonth" value="Per Month">
+            <label class="form-check-label mx-1" for="perMonth">Per Month</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" class="form-check-input" formControlName="priceMode" id="utilities" value="Utilities Included">
+            <label class="form-check-label" for="utilities">Utilities included</label>
+          </div>
+          </div>
+        </div>
+    </div>
+    <div class="buttons d-flex justify-content-center gap-3 mt-3">
+        <button class="btn btn-outline-danger btn-padding" (click)="cancel()">Cancel</button>
+        <button class="btn btn-outline-success btn-padding" (click)="applyFilters()">Apply</button>
+    </div>
+</div>

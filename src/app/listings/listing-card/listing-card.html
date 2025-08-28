@@ -1,0 +1,19 @@
+<div class="card p-2">
+  @if(showImage()) {
+    <img [src]="item()?.buildingImage?.[0]" class="img-thumbnail" alt="image" />
+  }
+  <div class="info">
+    @if(!showImage()) {
+      <h3 class="form-title pt-2 text-center">Your Next Home Might Be This One</h3>
+    }
+    <h4 class="title">{{ item()?.title }}</h4>
+    <p class="description">{{ item()?.description }}</p>
+  </div>
+  <div class="buttons d-flex gap-2 my-3">
+    @if(showViewBtn()) {
+    <button class="btn btn-primary" (click)="viewDetails()">view Details</button>
+    } @if(showFavBtn()) {
+    <button class="btn btn-success" (click)="markFavourite()">Mark as Favourite</button>
+    }
+  </div>
+</div>

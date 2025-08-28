@@ -1,0 +1,9 @@
+<div class="list-of-items">
+  <div class="container row my-3">
+    @for(item of listOfItems(); track $index) {
+    <div class="col-md-4 my-2">
+      <app-listing-card [item]="item" [showViewBtn]="true" [showFavBtn]="true" (viewInfo)="viewInfo($event)"></app-listing-card>
+    </div>
+    }
+  </div>
+</div>

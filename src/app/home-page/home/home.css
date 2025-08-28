@@ -1,0 +1,18 @@
+.container {
+  margin: auto;
+  padding: 10px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+img {
+  height: 280px;
+  width: 400px;
+  overflow: hidden;
+  object-fit: fill;
+}
+.appartment-info {
+  width: 60vw;
+  margin-top: 10px;
+}

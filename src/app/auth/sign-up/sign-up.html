@@ -1,0 +1,135 @@
+@if(showLoader()) {
+    <ng-container *ngTemplateOutlet="loader"></ng-container>
+} @else {
+    <div class="container justify-content-center my-3 sign-up">
+        <h3 class="form-title pt-2 text-center">Create an Account for Your Rental Dashboard</h3>
+        <p class="form-subtitle"><i>- Access smarter tools to rent, list, and manage properties all in one place..</i></p>
+        <div class="row g-2 justify-content-center" [formGroup]="formGroup">
+            <div class="col-md-6">
+            <div class="form-floating">
+                <input
+                type="text"
+                formControlName="firstName"
+                class="form-control"
+                placeholder="First Name"
+                />
+                <label for="firstName">First Name<span class="required">*</span></label>
+            </div>
+            @if(formGroup.get('firstName')?.invalid && attemptedSubmit()) {
+                <div class="d-block invalid error-message">
+                    @if(formGroup.get('firstName')?.hasError('required')) {
+                        <p class="invalid">please enter First Name.</p>
+                    }
+                </div>
+            }
+            </div>
+            <div class="col-md-6">
+            <div class="form-floating">
+                <input
+                type="text"
+                formControlName="lastName"
+                class="form-control"
+                placeholder="Last Name"
+                />
+                <label for="lastName">Last Name<span class="required">*</span></label>
+            </div>
+            @if(formGroup.get('lastName')?.invalid && attemptedSubmit()) {
+                <div class="d-block invalid error-message">
+                    @if(formGroup.get('lastName')?.hasError('required')) {
+                    <p class="invalid">please enter Last Name.</p>
+                    }
+                </div>
+            }
+            </div>
+            <div class="col-md-12">
+            <div class="form-floating">
+                <input type="text" formControlName="email" class="form-control" placeholder="Email" />
+                <label for="email">Email<span class="required">*</span></label>
+            </div>
+            @if(formGroup.get('email')?.invalid && attemptedSubmit()) {
+                <div class="d-block invalid error-message">
+                    @if(formGroup.get('email')?.hasError('required')) {
+                        <p class="invalid">please enter email address.</p>
+                    } 
+                    @if(formGroup.get('email')?.hasError('email')) {
+                        <p class="invalid">please enter valid email address.</p>
+                    }
+                </div>
+            }
+            </div>
+            <div class="col-md-6">
+            <div class="form-floating">
+                <input
+                type="password"
+                formControlName="password"
+                class="form-control"
+                placeholder="Password"
+                />
+                <label for="password">Password<span class="required">*</span></label>
+            </div>
+            @if(formGroup.get('password')?.invalid && attemptedSubmit()) {
+                <div class="d-block invalid error-message">
+                @if(formGroup.get('password')?.hasError('required')) {
+                    <p class="invalid">please enter password.</p>
+                }
+                @if(formGroup.get('password')?.hasError('minLength')) {
+                    <p class="invalid">password length cannot be less than 6 characters.</p>
+                }
+                </div>
+            }
+            </div>
+            <div class="col-md-6">
+            <div class="form-floating">
+                <input
+                type="password"
+                formControlName="reentered"
+                class="form-control"
+                placeholder="Re-enter Password"
+                />
+                <label for="reentered">Re-enter Password</label>
+            </div>
+            @if(formGroup.hasError('passwordMismatch') && attemptedSubmit()) {
+                <div class="d-block invalid error-message">
+                    <p class="invalid">please check your re-entered password.</p>
+                </div>
+            }
+            </div>
+            <div class="col-md-12">
+            <div class="form-floating">
+                <input
+                type="text"
+                formControlName="streetAddress"
+                class="form-control"
+                placeholder="Street Address"
+                />
+                <label for="streetAddress">Street Address</label>
+            </div>
+            </div>
+            <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" formControlName="state" class="form-control" placeholder="State" />
+                <label for="state">State</label>
+            </div>
+            </div>
+            <div class="col-md-6">
+            <div class="form-floating">
+                <input
+                type="text"
+                formControlName="zipcode"
+                class="form-control"
+                placeholder="Zip Code"
+                />
+                <label for="zipcode">Zip Code</label>
+            </div>
+            </div>
+        </div>
+        <div class="buttons d-flex justify-content-center p-4 gap-3">
+            <button class="btn btn-danger btn-padding" (click)="clearForm()">cancel</button>
+            <button class="btn btn-primary btn-padding" (click)="signUp()">Sign up</button>
+        </div>
+    </div>
+}
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

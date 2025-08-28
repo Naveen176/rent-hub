@@ -1,0 +1,50 @@
+.nav-bar {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.app-title {
+  font-size: 30px;
+}
+
+.icon-lg {
+  width: 32px;
+  height: 32px;
+}
+
+li {
+  list-style-type: none;
+  cursor: pointer;
+  color: #ffffff;
+  margin-top: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.nav-bar {
+  background-color: #3f51b5;
+  color: #ffffff;
+}
+
+a:hover,
+li:hover {
+  color: #ffc107;
+}
+
+.search-icon,.clear-icon {
+  cursor: pointer;
+}
+
+.btn,
+li,
+a {
+  white-space: nowrap;
+}
+.clear-icon{
+  background-color: red;
+  color: white;
+  border:0
+}
