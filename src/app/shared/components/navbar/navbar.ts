@@ -30,6 +30,10 @@ export class Navbar {
     private commonService: CommonService,
     private listingService: ListingService
   ) {
+    this.updateInfo();
+  }
+
+  updateInfo() {
     const user = localStorage.getItem('userName');
     const localRecords = localStorage.getItem('user-info');
     if (user) {
@@ -96,12 +100,12 @@ export class Navbar {
   }
 
   clearFilters() {
-    this.filtersCount.set(0)
+    this.filtersCount.set(0);
     this.router.navigate(['/rent-hub/home']);
   }
 
   filterCount(params: any) {
-    return Object.keys(params).length
+    return Object.keys(params).length;
   }
 
   search() {
