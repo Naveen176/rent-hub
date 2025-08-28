@@ -15,28 +15,30 @@ export class ListingInfo implements OnInit {
   rentalRecords = input<any[]>([]);
   params = signal<any>([]);
 
-  filtersEffect$ = effect(() => {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.params.set(params);
-    });
-    if(this.params()) {
-      this.listOfItems.set(this.listingService.filters(this.params()));
-      console.log(this.listOfItems())
-    } else {
-      this.listOfItems.set(this.rentalRecords());
-    }
-  });
-
-  searchEffect$ = effect(() => {
+  searchAndFiltersEffect$ = effect(() => {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.params.set(params);
     });
     if (this.params().title) {
       this.listOfItems.set(this.listingService.search(this.params().title));
+    }
+    else if(this.params()) {
+      this.listOfItems.set(this.listingService.filters(this.params()));
     } else {
       this.listOfItems.set(this.rentalRecords());
     }
   });
+
+  // searchEffect$ = effect(() => {
+  //   this.activatedRoute.queryParams.subscribe((params) => {
+  //     this.params.set(params);
+  //   });
+  //   if (this.params().title) {
+  //     this.listOfItems.set(this.listingService.search(this.params().title));
+  //   } else {
+  //     this.listOfItems.set(this.rentalRecords());
+  //   }
+  // });
 
   constructor(
     private router: Router,
