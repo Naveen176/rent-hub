@@ -1,59 +1,52 @@
-# RentHub
+# Rent Hub App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6.
+RentHub is a web-based apartment rental platform built with Angular and styled using Bootstrap. It features secure user authentication, dynamic apartment listings, and interactive comments and inquiries. The app includes form validation, search and filter functionality, and uses Angular routing and forms for smooth navigation and data handling.
 
-## Development server
 
-To start a local development server, run:
+## Features &  Delivarables
+-  User LogIn & Logout
+-  User Registration
+-  Form Validation with Reactive Forms
+-  User Can Add new Rental Post after LogIn
+-  Search & Filters
+-  View & Favourites
+-  Latest Rental Post at the Top
+-  Route gaurds
+-  Comments ( between consumer & provider )
+-  Test cases for Listing Info component & Listing Services
+-  Deployed Application on GitHub Pages
 
-```bash
-ng serve
+## Bonus Features
+- Preview before Submition of rental
+- Confirmation, warning, success pop up's before actions like submit, signup, logout
+- Filter Pop up
+- Custom Validator in FormGroup
+- Lazy Loading for View Post & New Post
+- Scroll to First Invalid Control
+- Numbers only directive for Numerical Fields
+- Pipes for Text transformation & Date Transformation ( comment added)
+
+## Git Hub Link
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Rent Hub Code → https://github.com/Naveen176/rent-hub
 
-## Code scaffolding
+Deployed App Link → https://naveen176.github.io/rent-hub/rent-hub/home
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
 ```
+## Technologies Used
+- Angular Version 20.1.6
+- CSS Library - Bootstrap
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+## Login Info's for Rental App
 ```
+- User 1
 
-## Building
+    Email Id: John.doe@gmail.com,
+    Password: 87654321,
 
-To build the project run:
+- USer 2 
 
-```bash
-ng build
+    Email Id: Dave.victor@gmail.com
+    Password: daveVictor
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
